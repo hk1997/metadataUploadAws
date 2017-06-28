@@ -1,0 +1,4 @@
+1) Open file test.js in any text editor.
+2) update the aws.config details and type in your secret key and other details.
+3) Open terminal in the file location.
+4) type node test and hit enter. 

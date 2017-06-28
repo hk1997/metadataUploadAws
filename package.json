@@ -1,0 +1,15 @@
+{
+  "name": "upload_script",
+  "version": "1.0.0",
+  "description": "uploads metadata to dynamoDb table",
+  "main": "test.js",
+  "dependencies": {
+    "aws-sdk": "^2.78.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "start"
+  },
+  "author": "hardik khandelwal",
+  "license": "ISC"
+}
