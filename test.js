@@ -53,8 +53,10 @@ listAllKeys('',function()
 	else
 		{
 			var index={};
-			Object.keys(data.Metadata).forEach(key=>{
-				if(data.Metadata[key]!=null && !data.Metadata[key]=='')
+			  index['objectName']={S:i.Key};
+
+				Object.keys(data.Metadata).forEach(key=>{
+				if(data.Metadata[key]!=null && !data.Metadata[key]=='' && !data.Metadata[key]=='null')
 				index[key]={S:data.Metadata[key]}
 			})
 			//console.log(index);
@@ -78,7 +80,7 @@ listAllKeys('',function()
 })
 	});
 
-	//	console.log('end of script');
+
 });
 
 
