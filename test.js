@@ -4,9 +4,9 @@ AWS.config.update({
   secretAccessKey: '',
   region: ''
 });
+
 var s3=new AWS.S3();
- 
-var dynamoDb=new AWS.DynamoDB();
+ var dynamoDb=new AWS.DynamoDB();
 
 var allKeys = [];
 
@@ -38,7 +38,7 @@ function listAllKeys(marker, cb)
 //calling list all keys function
 listAllKeys('',function()
 {	//callback function 
-	console.log('all keys have been listed now processing them to upload data in '+table);
+	//console.log('all keys have been listed now processing them to upload data in '+table);
 		allKeys[0].forEach(i=>{
 		console.log(i.Key);
 	
@@ -53,13 +53,18 @@ listAllKeys('',function()
 	else
 		{
 			var index={};
-			  index['objectName']={S:i.Key};
-
+			  index['objectName']={S:i.Key}; //adding object name
+        var s=i.Key;
+        s=s.substring(s.length-17,s.length-4);
+        var timestamp=new Date(parseInt(s));
+        //console.log(timestamp);        
+        index['timestamp']={S:timestamp.toGMTString()};
 				Object.keys(data.Metadata).forEach(key=>{
-				if(data.Metadata[key]!=null && !data.Metadata[key]=='' && !data.Metadata[key]=='null')
+				if(data.Metadata[key]!=null && !data.Metadata[key]=='' )
 				index[key]={S:data.Metadata[key]}
+		
 			})
-			//console.log(index);
+			console.log(index);
 
 			var params_db={
         	Item:index,
@@ -70,7 +75,10 @@ listAllKeys('',function()
         dynamoDb.putItem(params_db,function(err,item)
         {
             if(err)
-            	console.log(i.Key+" cannot be uploaded due to "+err);
+            	{
+            		console.log(i.Key+" cannot be uploaded due to "+err);
+            		throw err;
+            	}
             else
             console.log("upload of item successful "+i.Key);
         });
