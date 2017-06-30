@@ -54,7 +54,7 @@ listAllKeys('',function()
 		{
 			var index={};
 			Object.keys(data.Metadata).forEach(key=>{
-				if(data.Metadata[key]!=null && data.Metadata[key]=='')
+				if(data.Metadata[key]!=null && !data.Metadata[key]=='')
 				index[key]={S:data.Metadata[key]}
 			})
 			//console.log(index);
