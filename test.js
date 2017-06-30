@@ -68,7 +68,7 @@ listAllKeys('',function()
         dynamoDb.putItem(params_db,function(err,item)
         {
             if(err)
-            	console.log(i.Key+" cannot uploaded");
+            	console.log(i.Key+" cannot be uploaded due to "+err);
             else
             console.log("upload of item successful "+i.Key);
         });
